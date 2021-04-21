@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	var xhr;
+	function startRequest(){ // 요청하는 코드 부분
+		xhr = new XMLHttpRequest();
+		//alert("start");
+		xhr.onreadystatechange = callback;
+		xhr.open("get", "ASynch.do");
+		xhr.send(null);
+	}
+	
+	function callback(){ // 응답하는 코드 부분
+		if(xhr.readyState==4){
+			if(xhr.status==200){
+				var jsonData = JSON.parse(xhr.responseText) // 객체를 받을 때 쓰는 기능     문자열같은거 말고 객체를 전달하는게 json 
+				alert(jsonData.person.name+", "+jsonData.person.address);   // AjaxController 에서 만든 person에서 . 으로 세부 속성 가지고 오는 것
+			}
+		}
+	}
+
+</script>
+</head>
+<body>
+<h2>비동기 통신 적용하기... JSON 사용</h2>
+<a href="synch.do">동기 통신으로 연결하기</a><p>
+<input type="button" value="비동기 시작하기" onclick ="startRequest()">
+</body>
+</html>
